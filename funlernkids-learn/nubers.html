@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Numbers Game by Priyansh</title>
+  <link rel="stylesheet" href="nubs.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+  <!-- Multi-color Navbar -->
+  <nav class="navbar">
+    <div class="logo">🎉 Funlearn Games</div>
+    <div class="nav-links">
+    <a href="index.html">Home</a>
+      <a href="abc.html">ABC</a>
+      <a href="nubers.html">Numbers</a>
+     <a href="colors.html">Colors</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+ <main id="mainContainer">
+  <section id="gameTypeScreen" class="screen active">
+    <h1>Select Game Type & Level</h1>
+    <div class="game-type-grid">
+      <!-- Each box will have levels inside on expand -->
+      <div class="game-type-box" data-type="oddEven">
+        Odd or Even
+        <div class="level-buttons"></div>
+      </div>
+      <div class="game-type-box" data-type="plusMinus">
+        Plus or Minus
+        <div class="level-buttons"></div>
+      </div>
+      <div class="game-type-box" data-type="comparison">
+        Comparison
+        <div class="level-buttons"></div>
+      </div>
+      <div class="game-type-box" data-type="sequence">
+        Sequence
+        <div class="level-buttons"></div>
+      </div>
+      <div class="game-type-box" data-type="counting">
+        Counting Objects
+        <div class="level-buttons"></div>
+      </div>
+      <div class="game-type-box" data-type="biggerNumber">
+        Bigger Number
+        <div class="level-buttons"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Game Play Screen stays as before -->
+  <section id="gamePlayScreen" class="screen">
+    <h1 id="gameTitle"></h1>
+    <div id="questionBox">
+      <p id="questionText"></p>
+    </div>
+    <div id="optionsContainer"></div>
+    <p id="feedback"></p>
+    <button id="backToGameTypeBtn">← Back to Game Types</button>
+  </section>
+</main>
+
+
+  <!-- Footer with links -->
+  <footer>
+    <p>© 2025 Priyansh's Learning Site</p>
+    <div class="footer-links">
+      <a href="about.html">About Us</a>·
+      <a href="terms.html">Terms & Conditions</a>·
+      <a href="privacy.html">Privacy Policy</a>·
+      <a href="contact.html">Contact</a>
+    </div>
+    
+  </footer>
+
+  <!-- Sounds -->
+  <audio id="correctSound" src="correct.mp3"></audio>
+  <audio id="wrongSound" src="wrong.mp3"></audio>
+
+
+<audio id="clickSound" src="pick.mp3" preload="auto"></audio>
+<audio id="correctSound" src="correct.mp3" preload="auto"></audio>
+<audio id="wrongSound" src="wrong.mp3" preload="auto"></audio>
+
+
+  <script src="nub.js"></script>
+</body>
+</html>

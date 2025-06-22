@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fun Learn - Sign In</title>
+<link rel="stylesheet" href="sign.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Sign Up / Sign In</h2>
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <div>
+      <button id="signUpBtn">Sign Up</button>
+      <button id="signInBtn">Sign In</button>
+      <button id="signOutBtn" style="display:none;">Sign Out</button>
+    </div>
+    <h3 id="status">Not signed in</h3>
+
+    <h3>Game Progress</h3>
+    <p>Level: <span id="levelDisplay">-</span></p>
+    <p>Score: <span id="scoreDisplay">-</span></p>
+
+    <button id="saveProgressBtn" style="display:none;">Save Progress</button>
+  </div>
+
+  <script type="module" src="sighn.js"></script>
+</body>
+</html>

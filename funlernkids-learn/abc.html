@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ABC Game Types Selector - Full</title>
+  <link rel="stylesheet" href="abc.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <!-- Navbar -->
+<nav class="navbar">
+  <div class="logo"> ABC Learning</div>
+
+  <input type="checkbox" id="menu-toggle" />
+  <label for="menu-toggle" class="menu-icon">☰</label>
+
+  <div class="nav-links">
+    <a href="style.html">Home</a>
+      <a href="abc.html">ABC</a>
+      <a href="nubers.html">Numbers</a>
+     <a href="colors.html">Colors</a>
+      <a href="contact.html">Contact</a>
+    
+
+
+  </div>
+</nav>
+
+
+<div id="gamePlayArea" style="display:none;">
+    <button id="backToTypesBtn" class="back-btn">← Back to Game Types</button>
+    <div id="gameContainer"></div>
+    
+  </div>
+    <div class="progress-wrapper">
+  <div class="progress-bar" id="progressBar"></div>←
+</div>
+
+
+  <div id="gameTypesGrid" class="game-type-grid">
+    <div class="game-type-box" data-type="missingLetter" style="background: linear-gradient(45deg, #FF6B6B, #FFD93D);">
+      Missing Letter
+    </div>
+    <div class="game-type-box" data-type="matchPicture" style="background: linear-gradient(45deg, #6BCB77, #4D96FF);">
+      Match Letter to Picture
+    </div>
+    <div class="game-type-box" data-type="uppercaseMatch" style="background: linear-gradient(45deg, #F7971E, #FFD200);">
+      Uppercase-Lowercase Match
+    </div>
+    <div class="game-type-box" data-type="alphabeticalOrder" style="background: linear-gradient(45deg, #FF512F, #DD2476);">
+      Alphabetical Order
+    </div>
+    <div class="game-type-box" data-type="wordBuilding" style="background: linear-gradient(45deg, #56ab2f, #a8e063);">
+      Word Building
+    </div>
+    <div class="game-type-box" data-type="findTheLetter" style="background: linear-gradient(45deg, #614385, #516395);">
+      Find the Letter
+    </div>
+    <div class="game-type-box" data-type="letterSoundMatching" style="background: linear-gradient(45deg, #FF8008, #FFC837);">
+      Letter Sound Matching
+    </div>
+    <div class="game-type-box" data-type="letterTracing" style="background: linear-gradient(45deg, #283c86, #45a247);">
+      Letter Tracing
+    </div>
+    <div class="game-type-box" data-type="missingVowel" style="background: linear-gradient(45deg, #8E2DE2, #4A00E0);">
+      Missing Vowel
+    </div>
+    <div class="game-type-box" data-type="wordChain" style="background: linear-gradient(45deg, #00c6ff, #0072ff);">
+      Word Chain (Starting Letter)
+    </div>
+    <div class="game-type-box" data-type="sentenceCompletion" style="background: linear-gradient(45deg, #FF416C, #FF4B2B);">
+      Sentence Completion
+    </div>
+    <div class="game-type-box" data-type="letterPuzzle" style="background: linear-gradient(45deg, #1e3c72, #2a5298);">
+      Letter Puzzle
+    </div>
+  </div>
+
+  
+
+  <!-- Footer -->
+   <footer>
+    <p>© 2025 Priyansh's Learning Site</p>
+    <div class="footer-links">
+      <a href="about.html">About Us</a>·
+      <a href="terms.html">Terms & Conditions</a>·
+      <a href="privacy.html">Privacy Policy</a>·
+      <a href="contact.html">Contact</a>
+    </div>
+    
+  </footer>
+  <audio id="correctSound" src="correct.mp3"></audio>
+  <audio id="wrongSound" src="wrong.mp3"></audio>
+
+  <script src="abc.js"></script>
+</body>
+</html>

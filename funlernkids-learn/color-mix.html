@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Color Mix Game - Nub Games</title>
+  <style>
+    /* --- Global & Layout --- */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      color: #264653;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      background: linear-gradient(135deg, #f9f9f9 0%, #a1c4fd 50%, #c2e9fb 100%);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    header {
+      background: #264653;
+      padding: 20px 15px;
+      text-align: center;
+      color: white;
+      box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      user-select: none;
+    }
+    header h1 {
+      margin: 0;
+      font-weight: bold;
+      font-size: 28px;
+      letter-spacing: 1.2px;
+    }
+    nav {
+      margin-top: 12px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      background: linear-gradient(90deg, #e63946, #f4a261, #2a9d8f, #264653);
+      padding: 12px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgb(0 0 0 / 0.15);
+      user-select: none;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: transparent;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+    nav a:hover, nav a:focus {
+      background-color: rgba(255 255 255 / 0.25);
+      box-shadow: 0 0 10px rgba(255 255 255 / 0.7);
+      outline: none;
+    }
+
+    main {
+      flex-grow: 1;
+      width: 30%;
+      height:auto;
+      margin: 30px auto;
+      padding: 20px 40px;
+      background: #ffffffdd;
+      box-shadow: 0 4px 20px rgb(0 0 0 / 0.15);
+      border-radius: 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      user-select: none;
+    }
+
+    .score-level {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 400px;
+      color: #264653;
+    }
+
+    .color-display {
+      width: 180px;
+      height: 180px;
+      margin: 20px auto;
+      border-radius: 20px;
+      border: 5px solid #264653;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      background-color: #eee;
+      transition: background-color 0.5s;
+    }
+
+    .target-label {
+      font-weight: 700;
+      margin-top: 16px;
+      font-size: 22px;
+      color: #1d3557;
+    }
+
+    .slider-group {
+      max-width: 600px;
+      margin: 15px auto;
+      text-align: left;
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 18px;
+      color: #264653;
+    }
+
+    input[type=range] {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 14px;
+      border-radius: 7px;
+      background: #ddd;
+      outline: none;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type=range]:hover {
+      background-color: #ccc;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #264653;
+      cursor: pointer;
+      border: 3px solid #1d3557;
+      transition: background-color 0.3s;
+      margin-top: -9px;
+    }
+
+    input[type=range]:hover::-webkit-slider-thumb {
+      background: #2a9d8f;
+    }
+
+    button {
+      background: #264653;
+      color: white;
+      border: none;
+      padding: 14px 40px;
+      font-size: 20px;
+      font-weight: 700;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      margin-top: 25px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      user-select: none;
+    }
+
+    button:hover {
+      background: #2a9d8f;
+      box-shadow: 0 6px 18px rgba(42,157,143,0.6);
+    }
+
+    .message {
+      font-size: 22px;
+      min-height: 32px;
+      margin-top: 25px;
+      font-weight: 700;
+      color: #e63946;
+      user-select: none;
+    }
+
+   /* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #333;
+  color: white;
+  margin-top: 40px;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+footer a {
+  color: #feca57;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      main {
+        margin: 20px 15px 50px;
+        padding: 20px 25px;
+      }
+      .color-display {
+        width: 140px;
+        height: 140px;
+      }
+      label {
+        font-size: 16px;
+      }
+      button {
+        font-size: 18px;
+        padding: 12px 28px;
+        max-width: 100%;
+      }
+      .score-level {
+        font-size: 18px;
+        max-width: 350px;
+      }
+    }
+    @media (max-width: 480px) {
+      nav {
+        padding: 10px 12px;
+        gap: 14px;
+      }
+      nav a {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+      header h1 {
+        font-size: 22px;
+      }
+      main {
+        padding: 15px 15px;
+      }
+      .color-display {
+        width: 120px;
+        height: 120px;
+      }
+      label {
+        font-size: 14px;
+      }
+      button {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+      .score-level {
+        font-size: 16px;
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Nub Games - Color Mix</h1>
+  <nav>
+      <a href="index.html">Home</a>
+      <a href="abc.html">ABC</a>
+      <a href="nubers.html">Numbers</a>
+      <a href="colors.html">Colors</a>
+      <a href="contact.html">Contact</a>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="score-level">
+    <div>Level: <span id="level">1</span></div>
+    <div>Score: <span id="score">0</span></div>
+  </div>
+
+  <div>
+    <div class="color-display" id="targetColor"></div>
+    <div class="target-label">Target Color</div>
+  </div>
+
+  <div>
+    <div class="color-display" id="mixColor"></div>
+    <div class="target-label">Your Mix</div>
+  </div>
+
+  <div class="slider-group">
+    <label for="red">Red: <span id="redVal">0</span></label>
+    <input type="range" id="red" min="0" max="255" value="0" />
+  </div>
+  <div class="slider-group">
+    <label for="green">Green: <span id="greenVal">0</span></label>
+    <input type="range" id="green" min="0" max="255" value="0" />
+  </div>
+  <div class="slider-group">
+    <label for="blue">Blue: <span id="blueVal">0</span></label>
+    <input type="range" id="blue" min="0" max="255" value="0" />
+  </div>
+
+  <button id="checkBtn">Check Color</button>
+
+  <div class="message" id="message"></div>
+</main>
+
+<footer><p>© 2025 Priyansh's Learning Site</p>
+  <div class="footer-links"></div>
+      <a href="about.html">About Us</a>·
+      <a href="terms.html">Terms & Conditions</a>·
+      <a href="privacy.html">Privacy Policy</a>·
+      <a href="contact.html">Contact</a>
+   </div>
+</footer>
+
+<audio id="sound-correct" src="correct.mp3"></audio>
+<audio id="sound-wrong" src="wrong.mp3"></audio>
+
+
+
+<script>
+  let level = 1;
+  let score = 0;
+  const maxLevel = 7;
+  const tolerance = 40;
+
+  const targetColorDiv = document.getElementById("targetColor");
+  const mixColorDiv = document.getElementById("mixColor");
+  const redSlider = document.getElementById("red");
+  const greenSlider = document.getElementById("green");
+  const blueSlider = document.getElementById("blue");
+  const redVal = document.getElementById("redVal");
+  const greenVal = document.getElementById("greenVal");
+  const blueVal = document.getElementById("blueVal");
+  const messageDiv = document.getElementById("message");
+  const checkBtn = document.getElementById("checkBtn");
+  const levelSpan = document.getElementById("level");
+  const scoreSpan = document.getElementById("score");
+
+
+// Add these lines near the top, after your DOM elements are defined:
+const soundCorrect = document.getElementById("sound-correct");
+const soundWrong = document.getElementById("sound-wrong");
+
+// Inside your check button event listener, play sounds like this:
+checkBtn.addEventListener("click", () => {
+  const mix = {
+    r: +redSlider.value,
+    g: +greenSlider.value,
+    b: +blueSlider.value
+  };
+
+  if (isMatch(targetColor, mix)) {
+    // Correct answer sound
+    soundCorrect.currentTime = 0;
+    soundCorrect.play();
+
+    // ...your existing correct logic here...
+  } else {
+    // Wrong answer sound
+    soundWrong.currentTime = 0;
+    soundWrong.play();
+
+    // ...your existing wrong logic here...
+  }
+});
+
+
+  let targetColor = {r:0, g:0, b:0};
+
+  function generateTargetColor(lv) {
+    let maxVal = 255 - (lv * 25);
+    if (maxVal < 80) maxVal = 80;
+    return {
+      r: Math.floor(Math.random() * maxVal),
+      g: Math.floor(Math.random() * maxVal),
+      b: Math.floor(Math.random() * maxVal),
+    };
+  }
+
+  function rgbToCss(rgb) {
+    return `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+  }
+
+  function updateMixColor() {
+    const r = +redSlider.value;
+    const g = +greenSlider.value;
+    const b = +blueSlider.value;
+    mixColorDiv.style.backgroundColor = `rgb(${r},${g},${b})`;
+    redVal.textContent = r;
+    greenVal.textContent = g;
+    blueVal.textContent = b;
+  }
+
+  function isMatch(target, mix) {
+    return Math.abs(target.r - mix.r) <= tolerance &&
+           Math.abs(target.g - mix.g) <= tolerance &&
+           Math.abs(target.b - mix.b) <= tolerance;
+  }
+
+  function setupLevel() {
+    messageDiv.textContent = "";
+    levelSpan.textContent = level;
+    scoreSpan.textContent = score;
+
+    targetColor = generateTargetColor(level);
+    targetColorDiv.style.backgroundColor = rgbToCss(targetColor);
+
+    redSlider.value = 0;
+    greenSlider.value = 0;
+    blueSlider.value = 0;
+    updateMixColor();
+
+    checkBtn.disabled = false;
+  }
+
+  [redSlider, greenSlider, blueSlider].forEach(slider => {
+    slider.addEventListener("input", () => {
+      updateMixColor();
+      messageDiv.textContent = "";
+    });
+  });
+
+  checkBtn.addEventListener("click", () => {
+    const mix = {
+      r: +redSlider.value,
+      g: +greenSlider.value,
+      b: +blueSlider.value
+    };
+
+    if (isMatch(targetColor, mix)) {
+      score += 10 * level;
+      messageDiv.style.color = "#2a9d8f";
+      messageDiv.textContent = "Correct! Well done! 🎉";
+      if (level < maxLevel) {
+        level++;
+        setTimeout(setupLevel, 1500);
+      } else {
+        messageDiv.textContent = "Awesome! You finished all levels! Refresh to play again.";
+        checkBtn.disabled = true;
+      }
+      levelSpan.textContent = level;
+      scoreSpan.textContent = score;
+    } else {
+      messageDiv.style.color = "#e63946";
+      messageDiv.textContent = "Not quite, try adjusting the sliders.";
+    }
+  });
+
+  setupLevel();
+</script>
+
+</body>
+</html>

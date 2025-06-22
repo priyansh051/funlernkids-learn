@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Color Match Game - Nub Games</title>
+  <style>
+    /* Reset & basics */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0; padding: 0;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: #264653;
+      user-select: none;
+    }
+    header {
+      background: linear-gradient(90deg, #e63946, #f4a261, #2a9d8f, #264653);
+      padding: 15px 10px;
+      color: white;
+      text-align: center;
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: 1.2px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      margin-top: 8px;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 8px 15px;
+      border-radius: 10px;
+      background: rgba(255 255 255 / 0.2);
+      transition: background-color 0.3s ease;
+    }
+    nav a:hover {
+      background: rgba(255 255 255 / 0.5);
+    }
+    main {
+      flex-grow: 1;
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px 30px;
+      background: #ffffffcc;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .score-level {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      font-weight: 700;
+      font-size: 20px;
+      color: #264653;
+    }
+    #targetColor {
+      width: 180px;
+      height: 180px;
+      margin: 20px auto 30px;
+      border-radius: 25px;
+      border: 6px solid #264653;
+      box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+    }
+    .options {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      user-select: none;
+    }
+    .option {
+      width: 120px;
+      height: 120px;
+      border-radius: 15px;
+      border: 4px solid transparent;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+      cursor: pointer;
+      transition: transform 0.25s ease, border-color 0.3s ease;
+    }
+    .option:hover {
+      transform: scale(1.05);
+      border-color: #2a9d8f;
+    }
+    .option.correct {
+      border-color: #2a9d8f;
+      box-shadow: 0 0 15px #2a9d8f;
+    }
+    .option.wrong {
+      border-color: #e63946;
+      opacity: 0.7;
+    }
+    .message {
+      margin-top: 28px;
+      font-size: 22px;
+      font-weight: 700;
+      min-height: 32px;
+      color: #e63946;
+      user-select: none;
+    }
+    button#nextBtn {
+      margin-top: 30px;
+      padding: 14px 48px;
+      font-size: 20px;
+      background: #264653;
+      color: white;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      display: none;
+    }
+    button#nextBtn:hover {
+      background: #2a9d8f;
+    }
+    /* Footer */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #333;
+  color: white;
+  margin-top: 40px;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+footer a {
+  color: #feca57;
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      main {
+        margin: 20px 15px;
+        padding: 15px 20px;
+      }
+      #targetColor {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 25px;
+      }
+      .option {
+        width: 100px;
+        height: 100px;
+      }
+      button#nextBtn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  funlearn - Color Match
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="abc.html">ABC</a>
+    <a href="nubers.html">Numbers</a>
+    <a href="colors.html">Colors</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+  <div class="score-level">
+    <div>Level: <span id="level">1</span></div>
+    <div>Score: <span id="score">0</span></div>
+  </div>
+
+  <div id="targetColor"></div>
+
+  <div class="options" id="optionsContainer"></div>
+
+  <div class="message" id="message"></div>
+
+  <button id="nextBtn">Next Level</button>
+</main>
+
+<footer>
+    <p>© 2025 Priyansh's Learning Site</p>
+    <div class="footer-links">
+      <a href="about.html">About Us</a>·
+      <a href="terms.html">Terms & Conditions</a>·
+      <a href="privacy.html">Privacy Policy</a>·
+      <a href="contact.html">Contact</a>
+    </div>
+    
+  </footer>
+
+<!-- Sound Effects -->
+<audio id="sound-correct" src="correct.mp3"></audio>
+<audio id="sound-wrong" src="wrong.mp3"></audio>
+
+<script>
+  const levelSpan = document.getElementById('level');
+  const scoreSpan = document.getElementById('score');
+  const targetColorDiv = document.getElementById('targetColor');
+  const optionsContainer = document.getElementById('optionsContainer');
+  const messageDiv = document.getElementById('message');
+  const nextBtn = document.getElementById('nextBtn');
+
+  const soundCorrect = document.getElementById("sound-correct");
+  const soundWrong = document.getElementById("sound-wrong");
+
+  let level = 1;
+  let score = 0;
+  let correctIndex = 0;
+  const maxLevel = 10;
+
+  function randomColor() {
+    return {
+      r: Math.floor(Math.random() * 256),
+      g: Math.floor(Math.random() * 256),
+      b: Math.floor(Math.random() * 256),
+    };
+  }
+
+  function rgbToCss(c) {
+    return `rgb(${c.r}, ${c.g}, ${c.b})`;
+  }
+
+  function generateColors(numOptions) {
+    let colors = [];
+    for(let i = 0; i < numOptions; i++){
+      colors.push(randomColor());
+    }
+    return colors;
+  }
+
+  function setupLevel() {
+    messageDiv.textContent = '';
+    nextBtn.style.display = 'none';
+    levelSpan.textContent = level;
+    scoreSpan.textContent = score;
+
+    // number of options increases with level, max 6
+    const optionsCount = Math.min(4 + Math.floor(level / 2), 6);
+
+    // generate options colors
+    const optionsColors = generateColors(optionsCount);
+
+    // pick a random option as correct answer
+    correctIndex = Math.floor(Math.random() * optionsCount);
+    const correctColor = optionsColors[correctIndex];
+
+    // set target color box
+    targetColorDiv.style.backgroundColor = rgbToCss(correctColor);
+
+    // clear previous options
+    optionsContainer.innerHTML = '';
+
+    optionsColors.forEach((color, index) => {
+      const box = document.createElement('div');
+      box.classList.add('option');
+      box.style.backgroundColor = rgbToCss(color);
+      box.dataset.index = index;
+      box.addEventListener('click', onOptionClick);
+      optionsContainer.appendChild(box);
+    });
+  }
+
+  function onOptionClick(e) {
+    const clickedIndex = parseInt(e.currentTarget.dataset.index);
+
+    if (clickedIndex === correctIndex) {
+      score += 10 * level;
+      messageDiv.style.color = '#2a9d8f';
+      messageDiv.textContent = 'Correct! 🎉';
+      soundCorrect.currentTime = 0;
+      soundCorrect.play();
+      markOptions(correctIndex, true);
+      nextBtn.style.display = 'inline-block';
+      disableOptions();
+    } else {
+      messageDiv.style.color = '#e63946';
+      messageDiv.textContent = 'Try again!';
+      soundWrong.currentTime = 0;
+      soundWrong.play();
+      e.currentTarget.classList.add('wrong');
+      // Disable wrong clicked option to prevent multiple clicks
+      e.currentTarget.removeEventListener('click', onOptionClick);
+    }
+    scoreSpan.textContent = score;
+  }
+
+  function markOptions(correctIdx, correct) {
+    const options = optionsContainer.querySelectorAll('.option');
+    options.forEach((opt, idx) => {
+      if(idx === correctIdx) {
+        opt.classList.add('correct');
+      } else {
+        opt.classList.remove('correct');
+      }
+      opt.style.cursor = 'default';
+    });
+  }
+
+  function disableOptions() {
+    const options = optionsContainer.querySelectorAll('.option');
+    options.forEach(opt => {
+      opt.removeEventListener('click', onOptionClick);
+      opt.style.cursor = 'default';
+    });
+  }
+
+  nextBtn.addEventListener('click', () => {
+    if(level < maxLevel) {
+      level++;
+      setupLevel();
+      messageDiv.textContent = '';
+    } else {
+      messageDiv.style.color = '#264653';
+      messageDiv.textContent = '🎉 You completed all levels! Refresh to play again.';
+      nextBtn.style.display = 'none';
+    }
+  });
+
+  setupLevel();
+</script>
+
+</body>
+</html>
